@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  crm:
+    image: YOUR_DOCKERHUB_USERNAME/nirab-crm:1.0
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: on-failure
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
